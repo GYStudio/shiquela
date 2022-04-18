@@ -3,8 +3,8 @@ import React from 'react'
 
 const Profile = () => {
   return (
-    <View>
-      <Text>Profile</Text>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Profile Screen</Text>
     </View>
   )
 }

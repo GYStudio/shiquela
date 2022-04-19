@@ -18,27 +18,25 @@ const Home = ({navigation}) => {
   );
 
   return (
-    <View>
-      <Text style={[tw`text-black font-bold text-2xl`, styles.text2]}>Dashboard</Text>
-      <View style={styles.flexs}> 
-        <Pressable style={styles.button} onPress={()=> navigation.navigate(Ongoing)}>
+    <View style={styles.main}>
+      <Text style={[tw`text-black font-bold text-2xl`, styles.titletext]}>Dashboard</Text>
+      <View style={styles.mainbutton}> 
+        <Pressable style={[styles.button, {backgroundColor: `#48d1cc`} ]} onPress={()=> navigation.navigate(Ongoing)}>
           <Text style={styles.text}>Ongoing</Text>
         </Pressable>
-        <Pressable style={styles.button1} onPress={()=> navigation.navigate(Pending)}>
+        <Pressable style={[styles.button, {backgroundColor: "yellow"}]} onPress={()=> navigation.navigate(Pending)}>
           <Text style={styles.text}>Pending</Text>
         </Pressable>
-        <Pressable style={styles.button2} onPress={()=> navigation.navigate(Denied)}>
+        <Pressable style={[styles.button, {backgroundColor: "red"}]} onPress={()=> navigation.navigate(Denied)}>
           <Text style={styles.text}>Denied</Text>
         </Pressable>
       </View>
-      <View>
-        <Text style={[tw`text-black font-bold text-2xl`, styles.flatlisttitle]}>Jobs For You</Text>
+      <Text style={[tw`text-black font-bold text-2xl`, styles.titletext]}>Jobs For You</Text>
         <FlatList
         data={HomeData}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         />
-      </View>
     </View>
   )
 }
@@ -46,13 +44,19 @@ const Home = ({navigation}) => {
 export default Home
 
 const styles = StyleSheet.create({
-  // main: {
-  //   flex: 1, 
-  //   flexDirection: "column", 
-  //   justifyContent: "center",
-  // },
-  flatlisttitle:{
-    justifyContent: 'center',
+  main: {
+    flex: 1, 
+    flexDirection: "column",
+  },
+  titletext: { 
+    color: "black",
+    justifyContent:'center',
+    marginLeft: 110,
+    marginBottom: 20,
+  },
+  mainbutton: {
+    flexDirection: "row", 
+    justifyContent: "space-between", 
   },
   button: {
     flex: 1, 
@@ -62,55 +66,24 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 700,
     padding: 10,
+    marginBottom: 30,
+    marginHorizontal: 10,
     width: 100,
     height: 100,
-    backgroundColor: `#48d1cc`
-},
-button1: {
-  flex: 1, 
-  alignItems: "center",
-  justifyContent: "center",
-  width: 50,
-  backgroundColor: "#fff",
-  borderRadius: 700,
-  padding: 10,
-  width: 100,
-  height: 100,
-  backgroundColor: "yellow"
-},
-button2: {
-  flex: 1, 
-  alignItems: "center",
-  justifyContent: "center",
-  width: 50,
-  backgroundColor: "#fff",
-  borderRadius: 700,
-  padding: 10,
-  width: 100,
-  height: 100,
-  backgroundColor: "red"
 },
 text: {
   flex: 1, 
-  alignItems: "center", 
-  justifyContent: "center", 
+  flexDirection:'column',
+  marginTop: 25,
   marginBottom: 30, 
   color: "black",
   fontWeight: "bold",
   borderRadius: 10,
 },
-flexs: {
-  flexDirection: "row", 
-  // paddingBottom: 15, 
-  justifyContent: "space-between", 
-  // justifyContent: "space-around"
-},
-text2: {
-  flex: 1, 
-  color: "black",
-  // alignItems: "center",
-  justifyContent: "center", 
-  flexDirection: "row",
-  marginBottom: 30
+item: {
+  backgroundColor:"white",
+  padding: 20,
+  marginHorizontal: 10,
+  marginVertical: 5,
 },
 })

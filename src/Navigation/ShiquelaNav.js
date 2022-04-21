@@ -15,20 +15,42 @@ import Ongoing from "../Screens/Ongoing";
 import Pending from "../Screens/Pending";
 import Denied from "../Screens/Denied";
 import Post from "../Screens/Post";
-
-import firebaseConfig from "../../Backend/config";
-
-import { initializeApp } from "firebase/app";
-initializeApp(firebaseConfig);
+import { auth } from "../../Backend/Firebase";
+import { useNavigation } from "@react-navigation/native";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const ShiquelaNav = () => {
+  const navigation = useNavigation();
+
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = React.useState(true);
+  const [user, setUser] = React.useState();
+
+  // Handle user state changes
+
+  const onStateChanged = (user) => {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  };
+
+  React.useEffect(() => {
+    if (user && !initializing) {
+      navigation.navigate("Main");
+    }
+  }, [user, initializing]);
+
+  React.useEffect(() => {
+    const subscriber = onAuthStateChanged(auth, onStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
   return (
-    <Stack.Navigator initialRouteName="Welcome">
+    <Stack.Navigator initialRouteName={"Welcome"}>
       <Stack.Screen
-        name="Home"
+        name="Main"
         component={TabNav}
         options={{ headerShown: false }}
       />
@@ -47,7 +69,7 @@ const TabNav = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Home"
+        name="TabHome"
         component={Home}
         options={{
           tabBarIcon: ({ color, size }) => (

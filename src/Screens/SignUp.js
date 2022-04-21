@@ -1,64 +1,92 @@
 import {
-  Button,
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   TextInput,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
+
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../Backend/Firebase";
 
 const SignUp = () => {
-  const navigation = useNavigation();
-  const [number, onChangeNumber] = React.useState(number);
-  const [number2, onChangeNumber2] = React.useState(number2);
-  const [number3, onChangeNumber3] = React.useState(number3);
-  const [number4, onChangeNumber4] = React.useState(number4);
+  const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState({
+    name: "",
+    email: "",
+    password: "",
+    cPassword: "",
+  });
+
+  const handleChange = (name) => (text) => {
+    setData((_dt) => ({
+      ..._dt,
+      [name]: text,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      await updateProfile(auth.currentUser, {
+        displayName: data.name,
+      });
+      alert(`Successfully created user: ${data.name}`);
+      // once the user is signed up, react navigation automatically redirects to 'Home'. See ShiquelaNav.js code and observe 'onAuthStateChanged' to see how it works.
+    } catch (err) {
+      // show alert message
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <SafeAreaView>
+    <View>
       <Text>Register</Text>
       <Text style={styles.text}>Name</Text>
       <TextInput
         style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
+        onChangeText={handleChange("name")}
+        value={data.name}
         placeholder="Name"
-        keyboardType="numeric"
+        keyboardType="default"
       />
       <Text style={styles.text}>E-mail</Text>
       <TextInput
         style={styles.input}
-        onChangeText={onChangeNumber2}
-        value={number2}
+        onChangeText={handleChange("email")}
+        value={data.email}
         placeholder="Email"
-        keyboardType="numeric"
+        keyboardType="email-address"
       />
       <Text style={styles.text}>Password</Text>
       <TextInput
         style={styles.input}
-        onChangeText={onChangeNumber3}
-        value={number3}
+        onChangeText={handleChange("password")}
+        value={data.password}
         placeholder="Password"
-        keyboardType="numeric"
+        secureTextEntry
       />
       <Text style={styles.text}>Confirm Password</Text>
       <TextInput
         style={styles.input}
-        onChangeText={onChangeNumber4}
-        value={number4}
+        onChangeText={handleChange("cPassword")}
+        value={data.cPassword}
         placeholder="Confirm Password"
-        keyboardType="numeric"
+        secureTextEntry
       />
-      <Pressable
-        style={styles.button1}
-        onPress={() => navigation.navigate("Home")}
-      >
-        <Text style={styles.text1}>Create Account</Text>
-      </Pressable>
-    </SafeAreaView>
+      {loading ? (
+        <ActivityIndicator size="large" color="#000" />
+      ) : (
+        <Pressable style={styles.button1} onPress={handleSubmit}>
+          <Text style={styles.text1}>Create Account</Text>
+        </Pressable>
+      )}
+    </View>
   );
 };
 
@@ -72,10 +100,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button1: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width: 340,
     paddingTop: 5,
     paddingRight: 5,
     paddingBottom: 5,
@@ -89,11 +115,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   text1: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    marginBottom: 30,
     color: "white",
     fontWeight: "bold",
+    fontSize: 16,
   },
 });

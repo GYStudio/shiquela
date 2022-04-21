@@ -1,36 +1,62 @@
 import {
   StyleSheet,
   Text,
-  SafeAreaView,
   TextInput,
   Pressable,
+  View,
+  ActivityIndicator,
 } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Backend/Firebase";
 
 const SignIn = () => {
-  const navigation = useNavigation();
-  const [number, onChangeNumber] = React.useState(number);
-  const [number2, onChangeNumber2] = React.useState(number2);
+  const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (name) => (text) => {
+    setData((_dt) => ({
+      ..._dt,
+      [name]: text,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      alert(`Successfully signed in user: ${auth.currentUser.displayName}`);
+      // once the user is signed in, react navigation automatically redirects to 'Home'. See ShiquelaNav.js code and observe 'onAuthStateChanged' to see how it works.
+    } catch (err) {
+      // show alert message
+      console.error(err);
+      alert(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <SafeAreaView>
+    <View>
       <Text>Sign In</Text>
       <Text style={styles.text}>E-mail</Text>
       <TextInput
         style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
+        onChangeText={handleChange("email")}
+        value={data.email}
         placeholder="Email"
         keyboardType="email-address"
       />
       <Text style={styles.text}>Password</Text>
       <TextInput
         style={styles.input}
-        onChangeText={onChangeNumber2}
-        value={number2}
+        onChangeText={handleChange("password")}
+        value={data.password}
         placeholder="Password"
-        keyboardType="visible-password"
+        secureTextEntry
       />
       <Pressable
         style={styles.button2}
@@ -38,13 +64,14 @@ const SignIn = () => {
       >
         <Text>Forgot Password?</Text>
       </Pressable>
-      <Pressable
-        style={styles.button1}
-        onPress={() => navigation.navigate("Home")}
-      >
-        <Text style={styles.text1}>Sign In</Text>
-      </Pressable>
-    </SafeAreaView>
+      {loading ? (
+        <ActivityIndicator size="large" color="#000" />
+      ) : (
+        <Pressable style={styles.button1} onPress={handleSubmit}>
+          <Text style={styles.text1}>Sign In</Text>
+        </Pressable>
+      )}
+    </View>
   );
 };
 
@@ -58,10 +85,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button1: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width: 340,
     paddingTop: 5,
     paddingRight: 5,
     paddingBottom: 5,
@@ -79,11 +104,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   text1: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    marginBottom: 30,
     color: "white",
     fontWeight: "bold",
+    fontSize: 16,
   },
 });

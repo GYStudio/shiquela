@@ -7,12 +7,14 @@ const Welcome = () => {
   return (
     <View style={styles.views}>
       <View style={styles.lifeishard}>
+        <Text style={styles.header}>Shiquela</Text>
+
         <View>
           <Pressable
             style={styles.button2}
             onPress={() => navigation.navigate("Home")}
           >
-            <Text>SIGN IN/UP LATER</Text>
+            <Text style={styles.signUpLaterText}>SIGN IN/UP LATER</Text>
           </Pressable>
         </View>
         <View style={styles.flexs}>
@@ -30,7 +32,6 @@ const Welcome = () => {
           </Pressable>
         </View>
       </View>
-      <Text style={styles.text3}>Shiquela</Text>
     </View>
   );
 };
@@ -40,71 +41,67 @@ export default Welcome;
 const styles = StyleSheet.create({
   views: {
     flex: 1,
-    flexDirection: "column-reverse",
     justifyContent: "center",
   },
   flexs: {
     flexDirection: "row",
-    paddingBottom: 15,
   },
   lifeishard: {
     flexDirection: "column",
+    padding: 20,
   },
   button: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width: 50,
     backgroundColor: "#fff",
     borderWidth: 3,
     borderRadius: 10,
+    marginRight: 10,
   },
   button1: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width: 50,
-    paddingTop: 5,
-    paddingRight: 5,
-    paddingBottom: 5,
+    padding: 5,
     paddingLeft: 0,
     backgroundColor: "black",
     borderRadius: 10,
+    marginLeft: 10,
   },
   button2: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    resizeMode: "contain",
-    paddingBottom: 5,
+    marginVertical: 20,
+  },
+  signUpLaterText: {
+    fontSize: 16,
+    color: "black",
+    fontWeight: "bold",
   },
   text: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 30,
     color: "black",
     fontWeight: "bold",
     borderRadius: 10,
+    padding: 20,
   },
   text1: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "flex-end",
-    marginBottom: 30,
     color: "white",
     fontWeight: "bold",
+    padding: 20,
   },
   text2: {
-    flex: 1,
     color: "black",
     fontWeight: "bold",
     alignItems: "center",
     justifyContent: "center",
   },
-  text3: {
-    flex: 1,
+  header: {
     alignItems: "center",
     justifyContent: "center",
+    fontSize: 36,
+    fontWeight: "bold",
   },
 });

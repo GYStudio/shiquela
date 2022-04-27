@@ -52,6 +52,8 @@ const styles = StyleSheet.create({
       backgroundColor: "#fff",
       borderWidth: 3, 
       borderRadius: 10,
+      marginLeft: 8,
+      marginRight: 7
   },
   button1: {
     flex: 1, 
@@ -64,6 +66,8 @@ const styles = StyleSheet.create({
       paddingLeft: 0,
       backgroundColor: "black",
       borderRadius: 10,
+      marginLeft: 8,
+      marginRight: 8
   },
   button2: {
     flex: 1, 
@@ -76,18 +80,20 @@ const styles = StyleSheet.create({
     flex: 1, 
     alignItems: "center", 
     justifyContent: "center", 
-    marginBottom: 30, 
     color: "black",
+    marginBottom: 15,
     fontWeight: "bold",
     borderRadius: 10,
+    marginTop: 10
   },
   text1: {
     flex: 1, 
     alignItems: "center", 
     justifyContent: "flex-end", 
-    marginBottom: 30, 
+    marginBottom: 15,
     color: "white",
     fontWeight: "bold",
+    marginTop: 10
   },
   text2: {
     flex: 1, 
@@ -99,6 +105,8 @@ const styles = StyleSheet.create({
   text3: {
     flex: 1, 
     alignItems: "center", 
-    justifyContent: "center", 
+    justifyContent: "center",
+    marginLeft: 110,
+    marginTop: 250
   },
 });

@@ -15,6 +15,7 @@ import Ongoing from '../Screens/Ongoing';
 import Pending from '../Screens/Pending';
 import Denied from '../Screens/Denied';
 import Post from '../Screens/Post';
+import EditProfile from '../Screens/EditProfile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,10 +27,11 @@ const MainNav = () => {
       <Stack.Screen name='SignIn' component={SignIn}/>
       <Stack.Screen name='SignUp' component={SignUp}/>
       <Stack.Screen name='Welcome' component={Welcome}/>
-      <Stack.Screen name='ForgotPassword' component={ForgotPassword}/>
+      <Stack.Screen name='Forgot Password' component={ForgotPassword}/>
       <Stack.Screen name='Ongoing' component={Ongoing}/>
       <Stack.Screen name='Pending' component={Pending}/>
       <Stack.Screen name='Denied' component={Denied}/>
+      <Stack.Screen name='EditProfile' component={EditProfile}/>
     </Stack.Navigator>
   )
 }

@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View, SafeAreaView, TextInput, Pressable } from 'react-native'
+import { Button, StyleSheet, Text, View, SafeAreaView, TextInput, Pressable, multiline } from 'react-native'
 import React from 'react'
 import Home from './Home'
 import ForgotPassword from './ForgotPassword';
@@ -18,6 +18,7 @@ const SignIn = ({navigation}) => {
         value={number}
         placeholder="Email"
         keyboardType="numeric"
+        multiline={multiline || true}
       />
       <Text style={styles.text}>Password</Text>
       <TextInput

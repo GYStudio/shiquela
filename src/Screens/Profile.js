@@ -3,18 +3,10 @@ import React from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import EditProfile from './EditProfile';
 
-const Profile = ({navigation}) => {
+const Profile = ({navigation,title}) => {
   return (
     <View>
-      <View>
-        <Text style={styles.ProfileText}>Profile Screen</Text> 
-        <MaterialCommunityIcons 
-        name="cog-outline" 
-        size={24} 
-        color="black" 
-        onPress={()=> navigation.navigate(EditProfile)}/>
-      </View>
-     
+      
     </View>
   )
 }

@@ -36,7 +36,7 @@ const MainNav = () => {
   )
 }
 
-const TabNav = () => {
+const TabNav = ({navigation}) => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} options={{ 
@@ -48,7 +48,11 @@ const TabNav = () => {
       <Tab.Screen name='Settings' component={Settings} options={{
         tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="cog" color={color} size={26} />),}} />
       <Tab.Screen name='Profile' component={Profile} options={{
-        tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="account-circle" color={color} size={26} />),}}/>
+        tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="account-circle" color={color} size={26} />), 
+        headerRight: ({ color, size }) => (<MaterialCommunityIcons name="cog-outline" color={color} size={26} 
+        onPress={()=> navigation.navigate(EditProfile)} style={{marginRight:10}}/>),
+        headerTitleAlign:"center",
+        title: "My Profile", }}/>
     </Tab.Navigator>
   )
 }

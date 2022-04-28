@@ -3,10 +3,10 @@ import React from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import EditProfile from './EditProfile';
 
-const Profile = ({navigation,title}) => {
+const Profile = ({navigation}) => {
   return (
     <View>
-      
+
     </View>
   )
 }

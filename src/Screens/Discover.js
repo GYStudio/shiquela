@@ -47,6 +47,8 @@ item: {
   padding: 20,
   marginHorizontal: 10,
   marginVertical: 5,
+  height: "75px",
+  width: "100px"
 },
 searcbar: {
   marginLeft: 10,

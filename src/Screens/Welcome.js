@@ -8,23 +8,21 @@ import tw from 'twrnc';
 
 const Welcome = ({navigation}) => {
   return (
-    <View style={styles.views}>
-      <View style={styles.lifeishard}>
-        <View> 
-       <Pressable style={styles.button2} onPress={()=> navigation.navigate(Home)}>
-        <Text style={tw`text-black: 500 font-bold`}>SIGN IN/UP LATER</Text>
-      </Pressable>
+    <View style={styles.MainView}>
+      <View style={styles.DoubleButtonView}> 
+        <Pressable style={[styles.Button, {backgroundColor: "#fff"}]} onPress={()=> navigation.navigate(SignIn)}>
+          <Text style={styles.Text}>SIGN IN</Text>
+        </Pressable>
+        <Pressable style={[styles.Button, {backgroundColor: "black",}]} onPress={()=> navigation.navigate(SignUp)}>
+          <Text style={[styles.Text, {color: "white"}]}>REGISTER</Text>
+        </Pressable>
       </View>
-      <View style={styles.flexs}> 
-      <Pressable style={styles.button} onPress={()=> navigation.navigate(SignIn)}>
-        <Text style={styles.text}>SIGN IN</Text>
-      </Pressable>
-      <Pressable style={styles.button1} onPress={()=> navigation.navigate(SignUp)}>
-        <Text style={styles.text1}>REGISTER</Text>
-      </Pressable>
+      <View> 
+        <Pressable style={styles.SkipButton} onPress={()=> navigation.navigate(Home)}>
+          <Text style={[styles.Text, {color: "black"}]}>SIGN IN/UP LATER</Text>
+        </Pressable>
       </View>
-      </View>
-      <Text style={[tw`font-bold text-4xl`, styles.text3]}>Shiquela</Text>
+      <Text style={styles.Title}>Shiquela</Text>
     </View>
   )
 }
@@ -32,80 +30,47 @@ const Welcome = ({navigation}) => {
 export default Welcome
 
 const styles = StyleSheet.create({
-  views: {
+  MainView: {
     flex: 1, 
     flexDirection: "column-reverse", 
     justifyContent: "center"
   },
-  flexs: {
-    flexDirection: "row", 
-    paddingBottom: 15
-  },
-  lifeishard: {
-    flexDirection: "column", 
-  },
-  button: {
-      flex: 1, 
-      alignItems: "center",
-      justifyContent: "center",
-      width: 50,
-      backgroundColor: "#fff",
-      borderWidth: 3, 
-      borderRadius: 10,
-      marginLeft: 8,
-      marginRight: 7
-  },
-  button1: {
-    flex: 1, 
-      alignItems: "center",
-      justifyContent: "center",
-      width: 50,
-      paddingTop: 5,
-      paddingRight: 5,
-      paddingBottom: 5,
-      paddingLeft: 0,
-      backgroundColor: "black",
-      borderRadius: 10,
-      marginLeft: 8,
-      marginRight: 8
-  },
-  button2: {
+  SkipButton: {
     flex: 1, 
     alignItems: "center", 
     justifyContent: "flex-end", 
     resizeMode: "contain",
     paddingBottom: 5
   },
-  text: {
+  Text: {
     flex: 1, 
     alignItems: "center", 
     justifyContent: "center", 
-    color: "black",
-    marginBottom: 15,
     fontWeight: "bold",
+    marginVertical: 10,
     borderRadius: 10,
-    marginTop: 10
   },
-  text1: {
-    flex: 1, 
-    alignItems: "center", 
-    justifyContent: "flex-end", 
-    marginBottom: 15,
-    color: "white",
-    fontWeight: "bold",
-    marginTop: 10
+  DoubleButtonView: {
+    flexDirection: "row", 
+    paddingBottom: 15
   },
-  text2: {
-    flex: 1, 
-    color: "black",
-    fontWeight: "bold", 
-    alignItems: "center", 
-    justifyContent: "center", 
+  Button: {
+      flex: 1, 
+      alignItems: "center",
+      justifyContent: "center",
+      width: 50,
+      paddingVertical: 5,
+      marginHorizontal: 8,
+      paddingHorizontal: 5,
+      borderWidth: 3, 
+      borderRadius: 10,
   },
-  text3: {
+  Title: {
     flex: 1, 
     alignItems: "center", 
     justifyContent: "center",
+    fontWeight: 'bold',
+    fontSize: 35,
     marginLeft: 110,
     marginTop: 250
   },

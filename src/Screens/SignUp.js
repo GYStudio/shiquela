@@ -11,41 +11,41 @@ const SignUp = ({navigation}) => {
 
   return (
     <SafeAreaView>
-      <Text style={tw`text-black font-bold text-2xl`}>Register</Text>
-      <Text style={styles.text}>Name</Text>
+      <Text style={styles.Register}>Register</Text>
+      <Text style={styles.Text}>Name</Text>
       <TextInput
-        style={styles.input}
+        style={styles.Input}
         onChangeText={onChangeNumber}
         value={number}
         placeholder="Name"
         keyboardType="numeric"
       />
-      <Text style={styles.text}>E-mail</Text>
+      <Text style={styles.Text}>E-mail</Text>
       <TextInput
-        style={styles.input}
+        style={styles.Input}
         onChangeText={onChangeNumber2}
         value={number2}
         placeholder="Email"
         keyboardType="numeric"
       />
-       <Text style={styles.text}>Password</Text>
+       <Text style={styles.Text}>Password</Text>
        <TextInput
-        style={styles.input}
+        style={styles.Input}
         onChangeText={onChangeNumber3}
         value={number3}
         placeholder="Password"
         keyboardType="numeric"
       />
-       <Text style={styles.text}>Confirm Password</Text>
+       <Text style={styles.Text}>Confirm Password</Text>
        <TextInput
-        style={styles.input}
+        style={styles.Input}
         onChangeText={onChangeNumber4}
         value={number4}
         placeholder="Confirm Password"
         keyboardType="numeric"
       />
-       <Pressable style={styles.button1} onPress={()=> navigation.navigate(Home)}>
-        <Text style={styles.text1}>Create Account</Text>
+       <Pressable style={styles.Button} onPress={()=> navigation.navigate(Home)}>
+        <Text style={styles.ButtonText}>Create Account</Text>
       </Pressable>
     </SafeAreaView>
   );
@@ -54,13 +54,21 @@ const SignUp = ({navigation}) => {
 export default SignUp
 
 const styles = StyleSheet.create({
-  input: {
+  Register: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 25,
+  },
+  Input: {
     height: 40,
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },  
+  Text: {
+    marginLeft: 10 
   },
-  button1: {
+  Button: {
     flex: 1, 
       alignItems: "center",
       justifyContent: "center",
@@ -74,14 +82,10 @@ const styles = StyleSheet.create({
       backgroundColor: "black",
       borderRadius: 10,
   },
-  text: {
-    marginLeft: 10 
-  },
-  text1: {
+  ButtonText: {
     flex: 1, 
     alignItems: "center", 
-    justifyContent: "flex-end", 
-    marginBottom: 30, 
+    marginVertical: 10,
     color: "white",
     fontWeight: "bold",
   },

@@ -1,107 +1,77 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, Text, View, Button, Pressable} from 'react-native'
+import React from 'react'
+import SignIn from './SignIn';
+import SignUp from './SignUp';
+import ForgotPassword from './ForgotPassword';
+import Home from './Home';
+import tw from 'twrnc';
 
-const Welcome = () => {
-  const navigation = useNavigation();
+const Welcome = ({navigation}) => {
   return (
-    <View style={styles.views}>
-      <View style={styles.lifeishard}>
-        <Text style={styles.header}>Shiquela</Text>
-
-        <View>
-          <Pressable
-            style={styles.button2}
-            onPress={() => navigation.navigate("Home")}
-          >
-            <Text style={styles.signUpLaterText}>SIGN IN/UP LATER</Text>
-          </Pressable>
-        </View>
-        <View style={styles.flexs}>
-          <Pressable
-            style={styles.button}
-            onPress={() => navigation.navigate("SignIn")}
-          >
-            <Text style={styles.text}>SIGN IN</Text>
-          </Pressable>
-          <Pressable
-            style={styles.button1}
-            onPress={() => navigation.navigate("SignUp")}
-          >
-            <Text style={styles.text1}>REGISTER</Text>
-          </Pressable>
-        </View>
+    <View style={styles.MainView}>
+      <View style={styles.DoubleButtonView}> 
+        <Pressable style={[styles.Button, {backgroundColor: "#fff"}]} onPress={()=> navigation.navigate(SignIn)}>
+          <Text style={styles.Text}>SIGN IN</Text>
+        </Pressable>
+        <Pressable style={[styles.Button, {backgroundColor: "black",}]} onPress={()=> navigation.navigate(SignUp)}>
+          <Text style={[styles.Text, {color: "white"}]}>REGISTER</Text>
+        </Pressable>
       </View>
+      <View> 
+        <Pressable style={styles.SkipButton} onPress={()=> navigation.navigate(Home)}>
+          <Text style={[styles.Text, {color: "black"}]}>SIGN IN/UP LATER</Text>
+        </Pressable>
+      </View>
+      <Text style={styles.Title}>Shiquela</Text>
     </View>
-  );
-};
+  )
+}
 
-export default Welcome;
+export default Welcome
 
 const styles = StyleSheet.create({
-  views: {
-    flex: 1,
-    justifyContent: "center",
+  MainView: {
+    flex: 1, 
+    flexDirection: "column-reverse", 
+    justifyContent: "center"
   },
-  flexs: {
-    flexDirection: "row",
+  SkipButton: {
+    flex: 1, 
+    alignItems: "center", 
+    justifyContent: "flex-end", 
+    resizeMode: "contain",
+    paddingBottom: 5
   },
-  lifeishard: {
-    flexDirection: "column",
-    padding: 20,
-  },
-  button: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-    borderWidth: 3,
+  Text: {
+    flex: 1, 
+    alignItems: "center", 
+    justifyContent: "center", 
+    fontWeight: "bold",
+    marginVertical: 10,
     borderRadius: 10,
-    marginRight: 10,
   },
-  button1: {
-    flex: 1,
-    alignItems: "center",
+  DoubleButtonView: {
+    flexDirection: "row", 
+    paddingBottom: 15
+  },
+  Button: {
+      flex: 1, 
+      alignItems: "center",
+      justifyContent: "center",
+      width: 50,
+      paddingVertical: 5,
+      marginHorizontal: 8,
+      paddingHorizontal: 5,
+      borderWidth: 3, 
+      borderRadius: 10,
+  },
+  Title: {
+    flex: 1, 
+    alignItems: "center", 
     justifyContent: "center",
-    padding: 5,
-    paddingLeft: 0,
-    backgroundColor: "black",
-    borderRadius: 10,
-    marginLeft: 10,
-  },
-  button2: {
-    marginVertical: 20,
-  },
-  signUpLaterText: {
-    fontSize: 16,
-    color: "black",
-    fontWeight: "bold",
-  },
-  text: {
-    alignItems: "center",
-    justifyContent: "center",
-    color: "black",
-    fontWeight: "bold",
-    borderRadius: 10,
-    padding: 20,
-  },
-  text1: {
-    alignItems: "center",
-    justifyContent: "flex-end",
-    color: "white",
-    fontWeight: "bold",
-    padding: 20,
-  },
-  text2: {
-    color: "black",
-    fontWeight: "bold",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  header: {
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: 36,
-    fontWeight: "bold",
+    fontWeight: 'bold',
+    fontSize: 35,
+    marginLeft: 110,
+    marginTop: 250
   },
 });

@@ -12,7 +12,8 @@ const Profile = () => {
   };
   return (
     <View style={styles.container}>
-      <Text>Profile Screen</Text>
+      <Text>{auth.currentUser.displayName}</Text>
+      <Text>{auth.currentUser.email}</Text>
       <Pressable style={styles.button} onPress={handleSignOut}>
         <Text style={styles.text}>SIGN OUT</Text>
       </Pressable>

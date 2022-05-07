@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <View style={styles.main}>
-      <Text style={styles.titletext}>Dashboard</Text>
+      <Text style={styles.Title}>Dashboard</Text>
       <View style={styles.mainbutton}>
         <Pressable
           style={[styles.button, { backgroundColor: `#48d1cc` }]}
@@ -36,7 +36,7 @@ const Home = () => {
           <Text style={styles.text}>Denied</Text>
         </Pressable>
       </View>
-      <Text style={styles.titletext}>Jobs For You</Text>
+      <Text style={styles.Title}>Jobs For You</Text>
       <FlatList
         data={HomeData}
         renderItem={renderItem}
@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
   },
-  titletext: {
-    color: "black",
-    justifyContent: "center",
-    marginLeft: 110,
-    marginBottom: 20,
+  Title: {
+    fontWeight: "bold",
+    fontSize: 25,
+    alignSelf: "center",
+    marginBottom: 10,
   },
   mainbutton: {
     flexDirection: "row",

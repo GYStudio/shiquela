@@ -15,6 +15,7 @@ import Ongoing from "../Screens/Ongoing";
 import Pending from "../Screens/Pending";
 import Denied from "../Screens/Denied";
 import Post from "../Screens/Post";
+import EditProfile from "../Screens/EditProfile";
 import { auth } from "../../Backend/Firebase";
 import { useNavigation } from "@react-navigation/native";
 import { onAuthStateChanged } from "firebase/auth";
@@ -57,11 +58,12 @@ const ShiquelaNav = () => {
       <Stack.Screen name="Ongoing" component={Ongoing} />
       <Stack.Screen name="Pending" component={Pending} />
       <Stack.Screen name="Denied" component={Denied} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
     </Stack.Navigator>
   );
 };
 
-const TabNav = () => {
+const TabNav = ({navigation}) => {
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -108,15 +110,11 @@ const TabNav = () => {
         name="Profile"
         component={Profile}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="account-circle"
-              color={color}
-              size={26}
-            />
-          ),
-        }}
-      />
+          tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="account-circle" color={color} size={26} />), 
+          headerRight: ({ color, size }) => (<MaterialCommunityIcons name="cog-outline" color={color} size={26} 
+          onPress={()=> navigation.navigate(EditProfile)} style={{marginRight:10}}/>),
+          headerTitleAlign:"center",
+          title: "My Profile", }}/>
     </Tab.Navigator>
   );
 };

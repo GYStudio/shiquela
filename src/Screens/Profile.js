@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
   },
   EmailText: {
     fontSize: 20,
-    marginBottom: 20
+    marginBottom: 20,
+    alignSelf: "center",
   },
   SignOut: {
     alignItems: "center",

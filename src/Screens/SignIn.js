@@ -41,7 +41,7 @@ const SignIn = () => {
 
   return (
     <View>
-      <Text>Sign In</Text>
+      <Text style={styles.Title}>Sign In</Text>
       <Text style={styles.text}>E-mail</Text>
       <TextInput
         style={styles.input}
@@ -78,6 +78,12 @@ const SignIn = () => {
 export default SignIn;
 
 const styles = StyleSheet.create({
+  Title: {
+    fontWeight: "bold",
+    fontSize: 30,
+    alignSelf: "center",
+    marginBottom: 10,
+  },
   input: {
     height: 40,
     margin: 12,
@@ -107,5 +113,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 16,
+    marginVertical: 8,
   },
 });

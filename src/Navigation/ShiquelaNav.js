@@ -38,7 +38,7 @@ const ShiquelaNav = () => {
 
   React.useEffect(() => {
     if (user && !initializing) {
-      navigation.navigate("Main");
+      navigation.navigate("Home");
     }
   }, [user, initializing]);
 
@@ -49,11 +49,7 @@ const ShiquelaNav = () => {
 
   return (
     <Stack.Navigator initialRouteName={"Welcome"}>
-      <Stack.Screen
-        name="Main"
-        component={TabNav}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Home" component={TabNav} options={{ headerShown: false }}/>
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Welcome" component={Welcome} />
@@ -69,7 +65,7 @@ const TabNav = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="TabHome"
+        name="Home"
         component={Home}
         options={{
           tabBarIcon: ({ color, size }) => (

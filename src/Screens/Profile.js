@@ -1,89 +1,62 @@
-import { StyleSheet, Text, View, Pressable, TextInput} from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Pressable } from "react-native";
+import React from "react";
+import { auth } from "../../Backend/Firebase";
+import { signOut } from "firebase/auth";
+import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import EditProfile from './EditProfile';
 
-const Profile = ({navigation}) => {
+const Profile = () => {
+  const navigation = useNavigation();
+  const handleSignOut = async () => {
+    await signOut(auth);
+    navigation.navigate("Welcome");
+  };
   return (
-    <View>
-      <View style={styles.icon}> 
+    <View style={styles.container}>
+      <View style={styles.Icon}> 
         <MaterialCommunityIcons name="account-circle" size={150}/>
-        <Text style={styles.Text}>George Blue</Text>
-        <Text style={styles.text1}>4.5 Stars, 148 Reviews</Text>
+        <Text style={styles.NameText}>{auth.currentUser.displayName}</Text>
+        <Text style={styles.EmailText}>{auth.currentUser.email}</Text>
       </View>
-      <View style={styles.PressableView}> 
-      <Pressable style={styles.button}>
-        <Text style={styles.ButtonText}>90% Job Completion Rate</Text>
+      <Pressable style={styles.SignOut} onPress={handleSignOut}>
+        <Text style={styles.SignOutText}>SIGN OUT</Text>
       </Pressable>
-      <Pressable style={styles.button}>
-        <Text style={styles.ButtonText}>70% Job Completed On Time</Text>
-      </Pressable>
-      </View>
-      <View> 
-      <Pressable style={styles.button1}>
-        <Text style={styles.ButtonText}>82% Repeat Hire Rate</Text>
-      </Pressable>
-      </View>
     </View>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
 
 const styles = StyleSheet.create({
-  ProfileText:{
-    color: "black",
-    justifyContent:'center',
-    marginLeft: 110,
-    marginBottom: 20,
-  },
-  icon: {
+  Icon: {
     alignSelf: "center",
-},
-Text: {
-  fontSize: 30,
-},
-text1: {
-  fontSize: 20,
-  marginBottom: 20
-},
-ButtonText: {
-  flex: 1, 
-    alignItems: "center", 
-    justifyContent: "center", 
-    color: "black",
-    marginBottom: 15,
-    fontWeight: "bold",
-    borderRadius: 10,
-    marginTop: 10,
+  },
+  NameText: {
+    fontSize: 30,
+    alignSelf: "center",
+  },
+  EmailText: {
+    fontSize: 20,
+    marginBottom: 20,
+    alignSelf: "center",
+  },
+  SignOut: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 5,
+    paddingRight: 5,
+    paddingBottom: 5,
+    paddingLeft: 5,
+    marginLeft: 10,
     marginRight: 10,
-    marginLeft: 10
-},
-button: {
-  flex: 1, 
-  alignItems: "center",
-  justifyContent: "center",
-  width: 350,
-  backgroundColor: "#fff",
-  borderWidth: 3, 
-  borderRadius: 10,
-  marginLeft: 8,
-  marginRight: 7
-},
-button1: {
-  flex: 1, 
-  alignItems: "center",
-  flexDirection: "row",
-  alignSelf: "center",
-  width: 175,
-  backgroundColor: "#fff",
-  borderWidth: 3, 
-  borderRadius: 10,
-  marginLeft: 8,
-  marginRight: 7
-},
-PressableView: {
-  flexDirection: "row",
-  marginBottom: 15
-}
-})
+    backgroundColor: "black",
+    borderRadius: 10,
+  },
+  SignOutText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+    marginVertical: 8,
+  },
+});

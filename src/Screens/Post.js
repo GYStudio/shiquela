@@ -1,7 +1,6 @@
 import { Button, StyleSheet, Text, View, SafeAreaView, TextInput, Pressable, multiline, numberOfLines } from 'react-native'
 import React from 'react'
 import Discover from './Discover';
-import tw from 'twrnc';
 
 const Post = ({navigation}) => {
   const [number, onChangeNumber] = React.useState(number);

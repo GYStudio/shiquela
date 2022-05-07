@@ -4,7 +4,6 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import ForgotPassword from './ForgotPassword';
 import Home from './Home';
-import tw from 'twrnc';
 
 const Welcome = ({navigation}) => {
   return (

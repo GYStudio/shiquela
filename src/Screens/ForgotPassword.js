@@ -1,19 +1,17 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import SignIn from './SignIn'
-import tw from 'twrnc'
+import { Button, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
-const ForgotPassword = ({navigation}) => {
+const ForgotPassword = () => {
+  const navigation = useNavigation();
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>ForgotPassword Screen</Text>
-      <Button 
-      title='SignIn'
-      onPress={()=> navigation.navigate(SignIn)}/>
+      <Button title="SignIn" onPress={() => navigation.navigate("SignIn")} />
     </View>
-  )
-}
+  );
+};
 
-export default ForgotPassword
+export default ForgotPassword;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

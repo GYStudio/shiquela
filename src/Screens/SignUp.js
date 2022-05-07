@@ -1,65 +1,105 @@
-import { Button, StyleSheet, Text, View, SafeAreaView, TextInput, Pressable } from 'react-native'
-import React from 'react'
-import Home from './Home'
-import tw from 'twrnc';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
+import React from "react";
 
-const SignUp = ({navigation}) => {
-  const [number, onChangeNumber] = React.useState(number);
-  const [number2, onChangeNumber2] = React.useState(number2);
-  const [number3, onChangeNumber3] = React.useState(number3);
-  const [number4, onChangeNumber4] = React.useState(number4);
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../Backend/Firebase";
+
+const SignUp = () => {
+  const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState({
+    name: "",
+    email: "",
+    password: "",
+    cPassword: "",
+  });
+
+  const handleChange = (name) => (text) => {
+    setData((_dt) => ({
+      ..._dt,
+      [name]: text,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      await updateProfile(auth.currentUser, {
+        displayName: data.name,
+      });
+      alert(`Successfully created user: ${data.name}`);
+      // once the user is signed up, react navigation automatically redirects to 'Home'. See ShiquelaNav.js code and observe 'onAuthStateChanged' to see how it works.
+    } catch (err) {
+      // show alert message
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <SafeAreaView>
-      <Text style={styles.Register}>Register</Text>
-      <Text style={styles.Text}>Name</Text>
+    <View>
+      <Text style={styles.Title}>Register</Text>
+      <Text style={styles.text}>Name</Text>
       <TextInput
-        style={styles.Input}
-        onChangeText={onChangeNumber}
-        value={number}
+        style={styles.input}
+        onChangeText={handleChange("name")}
+        value={data.name}
         placeholder="Name"
-        keyboardType="numeric"
+        keyboardType="default"
       />
       <Text style={styles.Text}>E-mail</Text>
       <TextInput
-        style={styles.Input}
-        onChangeText={onChangeNumber2}
-        value={number2}
+        style={styles.input}
+        onChangeText={handleChange("email")}
+        value={data.email}
         placeholder="Email"
-        keyboardType="numeric"
+        keyboardType="email-address"
       />
-       <Text style={styles.Text}>Password</Text>
-       <TextInput
-        style={styles.Input}
-        onChangeText={onChangeNumber3}
-        value={number3}
+      <Text style={styles.text}>Password</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={handleChange("password")}
+        value={data.password}
         placeholder="Password"
-        keyboardType="numeric"
+        secureTextEntry
       />
-       <Text style={styles.Text}>Confirm Password</Text>
-       <TextInput
-        style={styles.Input}
-        onChangeText={onChangeNumber4}
-        value={number4}
+      <Text style={styles.text}>Confirm Password</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={handleChange("cPassword")}
+        value={data.cPassword}
         placeholder="Confirm Password"
-        keyboardType="numeric"
+        secureTextEntry
       />
-       <Pressable style={styles.Button} onPress={()=> navigation.navigate(Home)}>
-        <Text style={styles.ButtonText}>Create Account</Text>
-      </Pressable>
-    </SafeAreaView>
+      {loading ? (
+        <ActivityIndicator size="large" color="#000" />
+      ) : (
+        <Pressable style={styles.button1} onPress={handleSubmit}>
+          <Text style={styles.text1}>Create Account</Text>
+        </Pressable>
+      )}
+    </View>
   );
 };
 
-export default SignUp
+export default SignUp;
 
 const styles = StyleSheet.create({
-  Register: {
-    alignSelf: 'center',
-    fontWeight: 'bold',
-    fontSize: 25,
+  Title: {
+    fontWeight: "bold",
+    fontSize: 30,
+    alignSelf: "center",
+    marginBottom: 10,
   },
-  Input: {
+  input: {
     height: 40,
     margin: 12,
     borderWidth: 1,
@@ -68,25 +108,25 @@ const styles = StyleSheet.create({
   Text: {
     marginLeft: 10 
   },
-  Button: {
-    flex: 1, 
-      alignItems: "center",
-      justifyContent: "center",
-      width: 340,
-      paddingTop: 5,
-      paddingRight: 5,
-      paddingBottom: 5,
-      paddingLeft: 5,
-      marginLeft: 10,
-      marginRight: 10,
-      backgroundColor: "black",
-      borderRadius: 10,
+  button1: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 5,
+    paddingRight: 5,
+    paddingBottom: 5,
+    paddingLeft: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    backgroundColor: "black",
+    borderRadius: 10,
   },
-  ButtonText: {
-    flex: 1, 
-    alignItems: "center", 
-    marginVertical: 10,
+  text: {
+    marginLeft: 10,
+  },
+  text1: {
     color: "white",
     fontWeight: "bold",
+    fontSize: 16,
+    marginVertical: 8,
   },
 });

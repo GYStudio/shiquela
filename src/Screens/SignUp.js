@@ -55,7 +55,7 @@ const SignUp = () => {
         placeholder="Name"
         keyboardType="default"
       />
-      <Text style={styles.text}>E-mail</Text>
+      <Text style={styles.Text}>E-mail</Text>
       <TextInput
         style={styles.input}
         onChangeText={handleChange("email")}
@@ -104,6 +104,9 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },  
+  Text: {
+    marginLeft: 10 
   },
   button1: {
     alignItems: "center",

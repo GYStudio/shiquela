@@ -74,7 +74,7 @@ const EditProfile = ({navigation}) => {
       />
        <TextInput
         style={styles.input}
-        onChangeText={handleChange("cpassword")}
+        onChangeText={handleChange("cPassword")}
         value={data.cPassword}
         editable
         placeholder="Confirm Password"

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native'
+import { StyleSheet, Text, View, Pressable, TextInput, ActivityIndicator} from 'react-native'
 import React from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Profile from './Profile'
@@ -80,9 +80,13 @@ const EditProfile = ({navigation}) => {
         placeholder="Confirm Password"
         secureTextEntry
       />
-      <Pressable style={styles.ConfirmButton} onPress={handleSubmit}>
+      {loading ? (
+        <ActivityIndicator size="large" color="#000" />
+      ) : (
+        <Pressable style={styles.ConfirmButton} onPress={handleSubmit}>
         <Text style={styles.ConfirmText}>Confirm</Text>
       </Pressable>
+      )}
     </View>
   )
 }

@@ -1,14 +1,46 @@
-import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native'
+import { StyleSheet, Text, View, Pressable, TextInput, ActivityIndicator} from 'react-native'
 import React from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Profile from './Profile'
+import { auth } from '../../Backend/Firebase';
+import { updateEmail, updatePassword } from 'firebase/auth';
+import { updateProfile } from "firebase/auth";
+import { async } from '@firebase/util';
 
 const EditProfile = ({navigation}) => {
-    const [number, onChangeNumber] = React.useState(number);
-  const [number2, onChangeNumber2] = React.useState(number2);
-  const [number3, onChangeNumber3] = React.useState(number3);
-  const [number4, onChangeNumber4] = React.useState(number4);
+  const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState({
+    name: "",
+    email: "",
+    password: "",
+    cPassword: "",
+  });
 
+  const handleChange = (name,) => (text) => {
+    setData((_dt) => ({
+      ..._dt,
+      [name]: text,
+    }));
+  };
+
+  const handleSubmit = async ({navigation}) => {
+    try {
+      setLoading(true);
+      await updateProfile(auth.currentUser, {
+        displayName: data.name,
+      });
+      await updateEmail(auth.currentUser, data.email);
+      await updatePassword(auth.currentUser, data.password, data.cPassword);
+      alert(`Successfully updated!: ${data.name}`);
+      // once the user is signed up, react navigation automatically redirects to 'Home'. See ShiquelaNav.js code and observe 'onAuthStateChanged' to see how it works.
+    } catch (err) {
+      // show alert message
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   return (
     <View>
       <View style={styles.icon}>
@@ -16,35 +48,45 @@ const EditProfile = ({navigation}) => {
       </View>
       <TextInput
         style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="George Blue"
-        keyboardType="numeric"
+        onChangeText={handleChange("name")}
+        defaultValue={auth.currentUser.displayName}
+        editable
+        // value={data.name}
+        placeholder="Name"
+        keyboardType="default"
       />
       <TextInput
         style={styles.input}
-        onChangeText={onChangeNumber2}
-        value={number2}
-        placeholder="georgeblue@gmail.com"
-        keyboardType="numeric"
+        onChangeText={handleChange("email")}
+        defaultValue={auth.currentUser.email}
+        editable
+        // value={data.email}
+        placeholder="Email"
+        keyboardType="email-address"
       />
        <TextInput
         style={styles.input}
-        onChangeText={onChangeNumber3}
-        value={number3}
-        placeholder="+251123456789"
-        keyboardType="numeric"
-      />
-       <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber4}
-        value={number4}
+        onChangeText={handleChange("password")}
+        value={data.password}
+        editable
         placeholder="Password"
-        keyboardType="numeric"
+        secureTextEntry
       />
-      <Pressable style={styles.ConfirmButton} onPress={()=> navigation.navigate(Profile)}>
+       <TextInput
+        style={styles.input}
+        onChangeText={handleChange("cPassword")}
+        value={data.cPassword}
+        editable
+        placeholder="Confirm Password"
+        secureTextEntry
+      />
+      {loading ? (
+        <ActivityIndicator size="large" color="#000" />
+      ) : (
+        <Pressable style={styles.ConfirmButton} onPress={handleSubmit}>
         <Text style={styles.ConfirmText}>Confirm</Text>
       </Pressable>
+      )}
     </View>
   )
 }

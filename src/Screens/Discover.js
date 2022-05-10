@@ -3,6 +3,9 @@ import { Searchbar } from 'react-native-paper';
 import { StyleSheet, Text, View, FlatList, Pressable } from 'react-native'
 import HomeData from '../Info/HomeData';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { auth, firestore } from "../../Backend/Firebase";
+import { getDocs, addDoc, collection, Timestamp, Firestore, onSnapshot, QuerySnapshot, QueryDocumentSnapshot, doc, documentId } from "firebase/firestore";
+import { async } from '@firebase/util';
 
 const Item = ({ title }) => (
   <View style={styles.item}>
@@ -12,9 +15,38 @@ const Item = ({ title }) => (
 
 const Discover = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState([[]]);
 
   const onChangeSearch = query => setSearchQuery(query);
-  
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const getData = await getDocs(collection(firestore, "Jobs"));
+      getData.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+      const data = doc.data()
+      const _data = {
+        userId: auth.currentUser.displayName,
+        title: data.title,
+        description: data.description,
+        salary: data.salary,
+        requirements: data.requirements,
+        contactDetails: data.contactDetails,
+        postTime: Timestamp.fromDate(new Date()),
+      };
+
+      setData(_data)
+      });
+      alert(`Successfully fetched Data!: ${auth.currentUser.displayName}`)
+    } catch (error) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const renderItem = ({ item }) => (
       <Item title={item.title} />
     );
@@ -30,7 +62,7 @@ const Discover = ({ navigation }) => {
     <MaterialCommunityIcons name="filter-outline" size={26} />
     </View>
     <FlatList
-    data={HomeData}
+    data={data}
     renderItem={renderItem}
     keyExtractor={item => item.id}
     numColumns={1}

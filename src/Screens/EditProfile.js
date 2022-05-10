@@ -32,7 +32,7 @@ const EditProfile = ({navigation}) => {
       await updateProfile(auth.currentUser, {
         displayName: data.name,
       });
-      await linkWithPhoneNumber(auth.currentUser, data.phoneNumber);
+      // await linkWithPhoneNumber(auth.currentUser, data.phoneNumber);
       alert(`Successfully updated!: ${data.name}`);
       // once the user is signed up, react navigation automatically redirects to 'Home'. See ShiquelaNav.js code and observe 'onAuthStateChanged' to see how it works.
     } catch (err) {

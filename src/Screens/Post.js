@@ -17,11 +17,11 @@ import { addDoc, collection, Timestamp } from "firebase/firestore";
 const Post = ({ navigation }) => {
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState({
-    category: "",
     title: "",
     description: "",
     salary: "",
     requirements: "",
+    contactDetails: "",
   });
 
   const handleChange = (name) => (text) => {
@@ -37,18 +37,18 @@ const Post = ({ navigation }) => {
 
       const _data = {
         userId: auth.currentUser.displayName,
-        category: data.category,
         title: data.title,
         description: data.description,
         salary: data.salary,
         requirements: data.requirements,
+        contactDetails: data.contactDetails,
         postTime: Timestamp.fromDate(new Date()),
       };
 
       // using the docs from https://firebase.google.com/docs/firestore/manage-data/add-data
       await addDoc(collection(firestore, "Jobs"), _data);
 
-      alert(`Successfully posted!: ${data.name}`);
+      alert(`Successfully posted!: ${auth.currentUser.displayName}`);
     } catch (err) {
       console.error(err);
     } finally {
@@ -58,14 +58,6 @@ const Post = ({ navigation }) => {
 
   return (
     <ScrollView style={{ marginBottom: 10 }}>
-      <Text style={styles.text}>Job category</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={handleChange("category")}
-        value={data.category}
-        placeholder="Job category"
-        multiline={true}
-      />
       <Text style={styles.text}>Job Title</Text>
       <TextInput
         style={styles.input}
@@ -101,6 +93,14 @@ const Post = ({ navigation }) => {
         placeholder="What do you want from the people you hire?"
         multiline={multiline || true}
         numberOfLines={4}
+      />   
+      <Text style={styles.text}>Contact Details</Text>   
+      <TextInput
+        style={styles.input}
+        onChangeText={handleChange("contactDetails")}
+        value={data.contactDetails}
+        placeholder="Phone Number"
+        multiline={true}
       />
       <Pressable style={styles.button1} onPress={handleSubmit}>
         <Text style={styles.text1}>Confirm</Text>

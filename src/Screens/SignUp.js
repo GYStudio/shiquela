@@ -16,6 +16,7 @@ const SignUp = () => {
   const [data, setData] = React.useState({
     name: "",
     email: "",
+    phoneNumber: "",
     password: "",
     cPassword: "",
   });
@@ -63,6 +64,14 @@ const SignUp = () => {
         placeholder="Email"
         keyboardType="email-address"
       />
+      {/* <Text style={styles.Text}>Phone Number</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={handleChange("phoneNumber")}
+        value={data.phoneNumber}
+        placeholder="Phone Number"
+        keyboardType="phone-pad"
+      /> */}
       <Text style={styles.text}>Password</Text>
       <TextInput
         style={styles.input}

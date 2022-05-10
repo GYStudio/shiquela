@@ -18,6 +18,7 @@ const Profile = () => {
         <MaterialCommunityIcons name="account-circle" size={150}/>
         <Text style={styles.NameText}>{auth.currentUser.displayName}</Text>
         <Text style={styles.EmailText}>{auth.currentUser.email}</Text>
+        <Text style={styles.PhoneText}>{auth.currentUser.phoneNumber}</Text>
       </View>
       <Pressable style={styles.SignOut} onPress={handleSignOut}>
         <Text style={styles.SignOutText}>SIGN OUT</Text>
@@ -37,6 +38,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   EmailText: {
+    fontSize: 20,
+    marginBottom: 20,
+    alignSelf: "center",
+  },
+  PhoneText: {
     fontSize: 20,
     marginBottom: 20,
     alignSelf: "center",

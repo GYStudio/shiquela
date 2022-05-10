@@ -33,7 +33,7 @@ const Discover = ({ navigation }) => {
     data={HomeData}
     renderItem={renderItem}
     keyExtractor={item => item.id}
-    numColumns={3}
+    numColumns={1}
     />
     </View>
   );
@@ -42,13 +42,19 @@ const Discover = ({ navigation }) => {
 export default Discover;
 
 const styles = StyleSheet.create({
+// item: {
+//   backgroundColor:"white",
+//   padding: 20,
+//   marginHorizontal: 10,
+//   marginVertical: 5,
+//   height: "75px",
+//   width: "100px"
+// },
 item: {
-  backgroundColor:"white",
+  backgroundColor: "white",
   padding: 20,
   marginHorizontal: 10,
   marginVertical: 5,
-  height: "75px",
-  width: "100px"
 },
 searcbar: {
   marginLeft: 10,

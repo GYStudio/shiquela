@@ -3,7 +3,7 @@ import React from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Profile from './Profile'
 import { auth } from '../../Backend/Firebase';
-import { updateEmail, updatePassword } from 'firebase/auth';
+import { linkWithPhoneNumber, updateEmail, updatePassword} from 'firebase/auth';
 import { updateProfile } from "firebase/auth";
 import { async } from '@firebase/util';
 
@@ -12,6 +12,7 @@ const EditProfile = ({navigation}) => {
   const [data, setData] = React.useState({
     name: "",
     email: "",
+    phoneNumber: "",
     password: "",
     cPassword: "",
   });
@@ -26,11 +27,12 @@ const EditProfile = ({navigation}) => {
   const handleSubmit = async ({navigation}) => {
     try {
       setLoading(true);
+      await updateEmail(auth.currentUser, data.email);
+      await updatePassword(auth.currentUser, data.password, data.cPassword);
       await updateProfile(auth.currentUser, {
         displayName: data.name,
       });
-      await updateEmail(auth.currentUser, data.email);
-      await updatePassword(auth.currentUser, data.password, data.cPassword);
+      await linkWithPhoneNumber(auth.currentUser, data.phoneNumber);
       alert(`Successfully updated!: ${data.name}`);
       // once the user is signed up, react navigation automatically redirects to 'Home'. See ShiquelaNav.js code and observe 'onAuthStateChanged' to see how it works.
     } catch (err) {
@@ -53,6 +55,15 @@ const EditProfile = ({navigation}) => {
         editable
         // value={data.name}
         placeholder="Name"
+        keyboardType="default"
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={handleChange("phoneNumber")}
+        defaultValue={auth.currentUser.displayPhoneNumber}
+        editable
+        // value={data.name}
+        placeholder="Phone Number"
         keyboardType="default"
       />
       <TextInput

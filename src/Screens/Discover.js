@@ -26,16 +26,16 @@ const Discover = ({ navigation }) => {
       const getData = await getDocs(collection(firestore, "Jobs"));
       getData.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-      const data = doc.data()
-      const _data = {
-        userId: auth.currentUser.displayName,
-        title: data.title,
-        description: data.description,
-        salary: data.salary,
-        requirements: data.requirements,
-        contactDetails: data.contactDetails,
-        postTime: Timestamp.fromDate(new Date()),
-      };
+      const _data = doc.data()
+      // const _data = {
+      //   userId: auth.currentUser.displayName,
+      //   title: data.title,
+      //   description: data.description,
+      //   salary: data.salary,
+      //   requirements: data.requirements,
+      //   contactDetails: data.contactDetails,
+      //   postTime: Timestamp.fromDate(new Date()),
+      // };
 
       setData(_data)
       });
